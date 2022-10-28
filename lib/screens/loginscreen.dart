@@ -79,8 +79,8 @@ class _Login_ScreenState extends State<Login_Screen> {
                 },
                 label: const Text('Signup with google'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
+                 // foregroundColor: Colors.black,
+                 // backgroundColor: Colors.white,
                 ),
                 icon: const FaIcon(
                   FontAwesomeIcons.google,

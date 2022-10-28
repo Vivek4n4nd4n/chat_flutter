@@ -67,7 +67,7 @@ class _CrudHomeState extends State<CrudHome> {
                     }
                     _formkey.currentState!.save();
                     String message = "task added successfully";
-                    Map<String, dynamic> data = {'data':taskController.text,};
+                    Map<String, dynamic> data = {'data':taskController.text,'uid':user!.uid,"name":user!.displayName,'image':user!.photoURL,'mail':user!.email};
                     FirebaseFirestore.instance.collection('Tasks').add(data).then((value) => _showSuccessfulMessage(message));
 
                         // .collection("users").doc("task").collection("taskdata")

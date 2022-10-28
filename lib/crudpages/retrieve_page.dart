@@ -57,7 +57,7 @@ class _RetrievePageState extends State<RetrievePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                 backgroundImage:
-                                    NetworkImage("${user!.photoURL}"),
+                                    NetworkImage("${task['image']}"),
                               ),
                             ),
                             Column(
@@ -67,8 +67,10 @@ class _RetrievePageState extends State<RetrievePage> {
                                   style:
                                       const TextStyle(color: Colors.deepPurple),
                                 ),
-                                Text('${user!.displayName}'),
-                                Text("${user!.email}"),
+                                Text('${task['name']}'),
+
+
+                                Text("${task['mail']}"),
                               ],
                             ),
                             Spacer(),
@@ -86,7 +88,7 @@ class _RetrievePageState extends State<RetrievePage> {
                                           .delete());
                                 },
                                 child: const Icon(Icons.delete)),
-                            Padding(
+                   user!.uid == task['uid'] ?       Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                   onTap: () {
@@ -99,6 +101,7 @@ class _RetrievePageState extends State<RetrievePage> {
                                   },
                                   child: Icon(Icons.update)),
                             )
+                            : SizedBox(width: 40,)
                           ],
                         ),
                       ),
