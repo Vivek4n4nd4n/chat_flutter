@@ -66,15 +66,11 @@ class _CrudHomeState extends State<CrudHome> {
                       return;
                     }
                     _formkey.currentState!.save();
-                    String message = "task added successfully";
-                    Map<String, dynamic> data = {'data':taskController.text,'uid':user!.uid,"name":user!.displayName,'image':user!.photoURL,'mail':user!.email};
-                    FirebaseFirestore.instance.collection('Tasks').add(data).then((value) => _showSuccessfulMessage(message));
+                    String msg = "task added successfully";
+                    Map<String, dynamic> data = {'message':taskController.text,'uid':user!.uid,"name":user!.displayName,'image':user!.photoURL,'mail':user!.email};
+                    FirebaseFirestore.instance.collection('Tasks').add(data).then((value) => _showSuccessfulMessage(msg));
 
-                        // .collection("users").doc("task").collection("taskdata")
-                        // .add(data)
-                        // .then(
-                          //  (value) => _showSuccessfulMessage(message));
-                  },
+                                        },
                   child: const Text('Create Task')),
               const SizedBox(
                 height: 13,

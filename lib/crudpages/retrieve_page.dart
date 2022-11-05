@@ -25,8 +25,8 @@ class _RetrievePageState extends State<RetrievePage> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ChatPage()));
+               Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChatPage()));
               },
               icon: const Icon(Icons.chat))
         ],
@@ -62,8 +62,8 @@ class _RetrievePageState extends State<RetrievePage> {
                             ),
                             Column(
                               children: [
-                                Text(''
-                                  '${task['data']}',
+                                Text(
+                                  '${task['message']}',
                                   style:
                                       const TextStyle(color: Colors.deepPurple),
                                 ),
@@ -81,7 +81,7 @@ class _RetrievePageState extends State<RetrievePage> {
                                 onTap: () {
                                   FirebaseFirestore.instance
                                       .collection('Tasks')
-                                      .where('data', isEqualTo: task['data'])
+                                      .where('message', isEqualTo: task['message'])
                                       .get()
                                       .then((snapshot) => snapshot
                                           .docs.first.reference
@@ -96,7 +96,7 @@ class _RetrievePageState extends State<RetrievePage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => UpdateScreen(
-                                                  data: task['data'],
+                                                  data: task['message'],
                                                 )));
                                   },
                                   child: Icon(Icons.update)),

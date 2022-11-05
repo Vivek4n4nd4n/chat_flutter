@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_signin/provider/google_sin-in.dart';
+import 'package:flutter_google_signin/realtime_curd/user_profile.dart';
 import 'package:flutter_google_signin/screens/home_screens.dart';
 import 'package:flutter_google_signin/screens/profile_screen.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
@@ -20,6 +22,7 @@ class Login_Screen extends StatefulWidget {
 
 class _Login_ScreenState extends State<Login_Screen> {
   final user = FirebaseAuth.instance.currentUser;
+  final ref = FirebaseDatabase.instance.ref("userDatas");
 
   //final FirebaseAuth _auth = FirebaseAuth.instance;
   //final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -61,7 +64,7 @@ class _Login_ScreenState extends State<Login_Screen> {
             ),
             Center(
               child: ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   final provider =
                       Provider.of<GoogleSignInProvider>(context, listen: false);
                   provider.googleLogin();
@@ -75,19 +78,35 @@ class _Login_ScreenState extends State<Login_Screen> {
                     'uid': user?.uid,
                     'image': user?.photoURL
                   };
-                  FirebaseFirestore.instance.collection('users').doc(user?.uid).set(userdata);
+                  await ref.push().set(userdata).then((value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserProfilePage())));
+                  //FirebaseFirestore.instance.collection('users').doc(user?.uid).set(userdata);
                 },
                 label: const Text('Signup with google'),
                 style: ElevatedButton.styleFrom(
-                 // foregroundColor: Colors.black,
-                 // backgroundColor: Colors.white,
-                ),
+                    // foregroundColor: Colors.black,
+                    // backgroundColor: Colors.white,
+                    ),
                 icon: const FaIcon(
                   FontAwesomeIcons.google,
                   color: Color.fromARGB(255, 244, 162, 54),
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+                height: 250,
+                width: 290,
+                child: Image(
+                  image: NetworkImage(
+                    'https://i.pinimg.com/originals/57/51/65/575165317f86fdcf5492b3e2c92ef836.gif',
+                  ),
+                  fit: BoxFit.cover,
+                ))
           ],
         ),
       ),
